@@ -1,0 +1,6 @@
+{
+  "name": "一生所愛 音樂播放器",
+  "description": "天圓音樂《一生所愛》主題活動音樂播放與心意卡片 Landing Page",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
