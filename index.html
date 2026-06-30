@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>一生所愛 | 天圓音樂 Sun Sounds Music</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config for customization -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Noto Serif TC"', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+              display: ['"Playfair Display"', 'serif'],
+            },
+            colors: {
+              gold: {
+                50: '#fbf8f1',
+                100: '#f4ebd3',
+                200: '#e7d3a2',
+                300: '#dab971',
+                400: '#cca049',
+                500: '#b8862b',
+                600: '#9b6d21',
+                700: '#7e541b',
+                800: '#644118',
+                900: '#523516',
+              },
+              roseGold: {
+                50: '#fdf8f6',
+                100: '#fbeee9',
+                200: '#f5dcd3',
+                300: '#ebc0b0',
+                400: '#dd9c83',
+                500: '#cc7456',
+                600: '#bd5b3d',
+                700: '#9d472f',
+                800: '#813c29',
+                900: '#693325',
+              }
+            },
+            animation: {
+              'spin-slow': 'spin 15s linear infinite',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 4s ease-in-out infinite',
+              'fade-in': 'fadeIn 1s ease-out forwards',
+              'fade-out': 'fadeOut 0.5s ease-out forwards',
+              'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'glow': 'glow 2s ease-in-out infinite alternate',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeOut: {
+                '0%': { opacity: '1' },
+                '100%': { opacity: '0', visibility: 'hidden' },
+              },
+              slideUp: {
+                '0%': { opacity: '0', transform: 'translateY(30px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              glow: {
+                '0%': { boxShadow: '0 0 5px rgba(218, 185, 113, 0.2), 0 0 10px rgba(218, 185, 113, 0.1)' },
+                '100%': { boxShadow: '0 0 20px rgba(218, 185, 113, 0.6), 0 0 30px rgba(218, 185, 113, 0.3)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style type="text/css">
+      /* Premium custom styling */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      
+      .glass-player {
+        background: rgba(255, 255, 255, 0.28);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 10px 30px -5px rgba(204, 116, 86, 0.1),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+      }
+
+      .text-shadow-elegant {
+        text-shadow: 0 2px 4px rgba(105, 51, 37, 0.1);
+      }
+
+      .gold-text-gradient {
+        background: linear-gradient(135deg, #a27b38 0%, #875c1c 50%, #68410e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Custom styling for progress bar slider range */
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+      }
+      
+      input[type="range"]:focus {
+        outline: none;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        background: transparent;
+        height: 100%;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        background: #cca049;
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        margin-top: -5px; /* Centers the thumb */
+        transition: transform 0.1s ease;
+      }
+
+      input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+      }
+
+      /* FireFox styling */
+      input[type="range"]::-moz-range-track {
+        background: transparent;
+        height: 100%;
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        background: #cca049;
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: transform 0.1s ease;
+      }
+
+      input[type="range"]::-moz-range-thumb:hover {
+        transform: scale(1.2);
+      }
+
+      /* Scrollbar removal */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body class="bg-[#fcf8f5] text-[#5c4a45] font-sans min-h-screen overflow-x-hidden relative flex flex-col justify-between selection:bg-roseGold-200">
+    
+    <!-- Background Canvas for Falling Rose Petals -->
+    <canvas id="petalsCanvas" class="absolute inset-0 pointer-events-none z-10 w-full h-full"></canvas>
+
+    <!-- App Background Layer: High fidelity generated visual fallback to beautiful rose gradient -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-95 transition-opacity duration-1000" 
+         style="background-image: url('src/assets/images/background_roses_1782825219184.jpg'), linear-gradient(135deg, #fffcfb 0%, #fff2ec 40%, #ffebdf 80%, #f7d6c8 100%); z-index: 1;">
+    </div>
+
+    <!-- Soft Golden ambient glows behind the player -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full bg-orange-200/20 blur-3xl pointer-events-none z-1" style="z-index: 2;"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-[280px] h-[280px] rounded-full bg-pink-100/30 blur-3xl pointer-events-none z-1" style="z-index: 2;"></div>
+
+    <!-- MAIN APP WRAPPER (Centered Mobile Mockup on Desktop, Fluid on Mobile) -->
+    <main class="w-full max-w-[480px] mx-auto min-h-screen flex flex-col justify-between px-6 py-8 relative" style="z-index: 10;">
+      
+      <!-- HEADER LOGO SECTION -->
+      <header class="w-full flex justify-center mb-6 animate-fade-in" id="header-logo">
+        <div class="flex flex-col items-center">
+          <div class="flex items-center space-x-2">
+            <!-- Sun Sounds Music SVG Logo -->
+            <svg class="w-8 h-8 drop-shadow-sm" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Green background leaf/swoosh -->
+              <path d="M50 95C74.8528 95 95 74.8528 95 50C95 25.1472 74.8528 5 50 5C25.1472 5 5 25.1472 5 50C5 74.8528 25.1472 95 50 95Z" fill="#2eb060" fill-opacity="0.15"/>
+              <path d="M50 88C70.9868 88 88 70.9868 88 50C88 29.0132 70.9868 12 50 12C29.0132 12 12 29.0132 12 50C12 70.9868 29.0132 88 50 88Z" fill="white"/>
+              <!-- Green swirling leaf shape -->
+              <path d="M22 65C30 75 45 78 55 76C68 73.5 76 60 76 46C76 28 60 16 44 20C30 23.5 24 38 29 49C33.5 59 47.5 61 54 54C59 48.5 56 39 48 38C43 37.5 39 41.5 40 46C40.5 48.5 43.5 49.5 45 48.5C46.5 47.5 47 45 46.5 44" stroke="#2eb060" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Red sunray swooshes -->
+              <path d="M68 34C73 34 78 30 80 25C81 22.5 82 20 83 17" stroke="#e1251b" stroke-width="5" stroke-linecap="round"/>
+              <path d="M60 26C64 24 67 20 68 16C69 13.5 69 11 69 8" stroke="#e1251b" stroke-width="5" stroke-linecap="round"/>
+              <path d="M74 44C80 43 85 39 88 34C89.5 31.5 91 29 92 26" stroke="#e1251b" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <div class="flex flex-col">
+              <span class="text-lg font-bold tracking-[0.2em] text-[#e1251b] font-serif leading-tight">天圓音樂</span>
+              <span class="text-[7.5px] font-semibold tracking-[0.28em] text-[#2eb060] font-sans -mt-0.5">SUN SOUNDS MUSIC</span>
+            </div>
+          </div>
+          <!-- Tiny elegant separator -->
+          <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-400 to-transparent mt-2"></div>
+        </div>
+      </header>
+
+      <!-- MAIN MUSIC CARD -->
+      <section class="flex-1 flex flex-col justify-center items-center my-4 animate-fade-in" style="animation-delay: 0.15s">
+        
+        <!-- SONG MAIN TITLES -->
+        <div class="text-center mb-6">
+          <h1 class="text-3xl md:text-4xl font-serif font-bold tracking-widest text-shadow-elegant gold-text-gradient mb-3" id="main-theme-title">
+            《一生所愛》
+          </h1>
+          <div class="flex flex-col items-center space-y-1">
+            <span class="text-xs tracking-[0.25em] text-[#8a7269] uppercase font-sans">作詞 / 作曲</span>
+            <span class="text-base font-serif font-semibold text-[#6d5147] tracking-wider" id="composer-name">太陽盛德導師</span>
+          </div>
+        </div>
+
+        <!-- ROTATING GLASSMORPHIC PLAYER DISC -->
+        <div class="relative w-72 h-72 md:w-80 md:h-80 flex items-center justify-center mb-6">
+          
+          <!-- Outer glowing gold orbit -->
+          <div class="absolute inset-0 rounded-full border border-gold-300/40 p-1 animate-pulse-slow">
+            <div class="w-full h-full rounded-full border border-dashed border-gold-400/20"></div>
+          </div>
+
+          <!-- Glassmorphic Container -->
+          <div class="w-[92%] h-[92%] rounded-full glass-player p-6 flex flex-col justify-between items-center relative overflow-hidden group">
+            
+            <!-- Reflections and soft rose backdrop inside the glass player -->
+            <div class="absolute -top-12 -left-12 w-32 h-32 rounded-full bg-pink-100/35 blur-xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -right-12 w-32 h-32 rounded-full bg-orange-100/30 blur-xl pointer-events-none"></div>
+
+            <!-- Glowing musical notes inside background -->
+            <div class="absolute top-1/4 right-8 opacity-25 transform rotate-12 transition-transform duration-700 pointer-events-none group-hover:translate-y-[-5px]">
+              <svg class="w-8 h-8 text-gold-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+              </svg>
+            </div>
+            
+            <div class="absolute bottom-1/4 left-8 opacity-20 transform -rotate-12 transition-transform duration-700 pointer-events-none group-hover:translate-y-[5px]">
+              <svg class="w-6 h-6 text-gold-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3zm10-3a3 3 0 1 1-3-3 3 3 0 0 1 3 3zM9.5 3H18v3H9.5V3zm0 5H18v3H9.5V8z"/>
+              </svg>
+            </div>
+
+            <!-- Decorative Center Rotator / CD Design -->
+            <div class="flex-1 flex flex-col justify-center items-center mt-2 relative z-10">
+              
+              <!-- Spinning Vinyl record / Gold Ring structure -->
+              <div id="player-vinyl" class="w-36 h-36 rounded-full bg-gradient-to-br from-gold-100 via-white to-gold-200/80 p-3 shadow-inner flex items-center justify-center border-2 border-white/60 transition-transform duration-1000 ease-out">
+                
+                <div class="w-full h-full rounded-full bg-gradient-to-tr from-gold-500 via-gold-200 to-gold-400 p-2 flex items-center justify-center shadow-lg relative">
+                  
+                  <!-- CD Grooves -->
+                  <div class="absolute inset-1 rounded-full border border-black/5"></div>
+                  <div class="absolute inset-2 rounded-full border border-white/10"></div>
+                  <div class="absolute inset-4 rounded-full border border-black/5"></div>
+                  <div class="absolute inset-6 rounded-full border border-white/15"></div>
+                  
+                  <!-- Center Core -->
+                  <div class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center relative z-10 border border-gold-300">
+                    <!-- Music note icon that scales dynamically -->
+                    <svg id="disk-note" class="w-6 h-6 text-gold-600 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Song status / playing text tag inside disc area -->
+              <div class="mt-4 text-center">
+                <p id="current-track-display" class="text-xs font-semibold tracking-wider text-roseGold-900 bg-white/75 backdrop-blur-sm px-3 py-1 rounded-full border border-roseGold-100/60 inline-block shadow-sm">
+                  準備播放...
+                </p>
+              </div>
+            </div>
+
+            <!-- PLAYER BUTTON CONTROLS (HORIZONTALLY ALIGNED) -->
+            <div class="w-full flex items-center justify-center space-x-6 z-10 mb-2">
+              <!-- Previous Button -->
+              <button id="btn-prev" class="w-10 h-10 rounded-full flex items-center justify-center text-gold-600 hover:text-gold-800 hover:bg-white/40 active:scale-95 transition-all focus:outline-none" title="上一首">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path>
+                </svg>
+              </button>
+
+              <!-- Central Play/Pause Button -->
+              <button id="btn-play" class="w-14 h-14 rounded-full bg-gradient-to-b from-gold-300 to-gold-500 text-white flex items-center justify-center shadow-lg shadow-gold-600/20 hover:scale-105 active:scale-95 transition-all focus:outline-none border border-gold-200" title="播放 / 暫停">
+                <!-- Play Icon (Visible by default) -->
+                <svg id="play-svg" class="w-6 h-6 ml-1 transition-all" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+                <!-- Pause Icon (Hidden by default) -->
+                <svg id="pause-svg" class="w-6 h-6 hidden transition-all" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+                </svg>
+              </button>
+
+              <!-- Next Button -->
+              <button id="btn-next" class="w-10 h-10 rounded-full flex items-center justify-center text-gold-600 hover:text-gold-800 hover:bg-white/40 active:scale-95 transition-all focus:outline-none" title="下一首">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path>
+                </svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PROGRESS TIMELINE BAR -->
+        <div class="w-full px-4 mb-4">
+          <!-- Timeline track -->
+          <div class="relative w-full h-1.5 bg-white/60 rounded-full overflow-visible mb-2 border border-white/20 shadow-inner">
+            <!-- Filled Track -->
+            <div id="progress-fill" class="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-roseGold-400 to-gold-400 rounded-full"></div>
+            <!-- Slider thumb & seeking controller -->
+            <input id="progress-slider" type="range" min="0" max="100" value="0" step="0.1" class="absolute -top-1.5 left-0 w-full h-4 opacity-100 select-none z-20">
+          </div>
+          <!-- Time indicator texts -->
+          <div class="flex justify-between text-[11px] font-mono font-medium text-[#8a7269] tracking-wider">
+            <span id="time-current">00:00</span>
+            <span id="time-total">00:00</span>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE ELEGANT CAPTION -->
+        <div class="text-center py-4 px-2 select-none">
+          <p class="font-serif text-lg md:text-xl text-[#654d44] tracking-widest leading-relaxed font-semibold transition-all duration-700" id="quote-line-1">
+            有一首歌，
+          </p>
+          <p class="font-serif text-lg md:text-xl text-[#654d44] tracking-widest leading-relaxed mt-2 font-semibold transition-all duration-700" id="quote-line-2">
+            或許會陪伴你找到答案。
+          </p>
+        </div>
+
+      </section>
+
+      <!-- BOTTOM CONTROL ACTION BUTTONS -->
+      <footer class="space-y-4 animate-fade-in" style="animation-delay: 0.3s">
+        
+        <!-- Button 1: 繼續聆聽 -->
+        <button id="btn-continue-listen" class="w-full py-4 px-6 rounded-full glass-panel flex items-center justify-center space-x-3 text-gold-700 font-serif font-semibold text-lg tracking-widest hover:bg-white/60 hover:shadow-md active:scale-[0.98] transition-all duration-300 focus:outline-none border border-gold-300/50 shadow-sm relative group overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-r from-gold-100/25 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <!-- Headphone Icon -->
+          <svg class="w-6 h-6 text-gold-600 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H18a3 3 0 00-3-3H9a3 3 0 00-3 3H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H18a3 3 0 00-3-3H9a3 3 0 00-3 3H5.25A2.25 2.25 0 013 12V5.25"></path>
+          </svg>
+          <span id="btn-listen-text">繼續聆聽</span>
+        </button>
+
+        <!-- Button 2: 開啟小心意 -->
+        <button id="btn-open-gift" class="w-full py-4 px-6 rounded-full bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 hover:from-gold-300 hover:to-gold-500 text-white flex items-center justify-center space-x-3 font-serif font-semibold text-lg tracking-widest hover:shadow-lg hover:shadow-gold-600/10 active:scale-[0.98] transition-all duration-300 focus:outline-none border border-gold-300/40 relative group overflow-hidden">
+          <!-- Ambient pulse ring on hover -->
+          <div class="absolute -inset-0.5 rounded-full bg-gold-300 opacity-0 group-hover:opacity-30 blur-sm group-hover:animate-pulse transition-opacity duration-300"></div>
+          
+          <!-- Gift Icon -->
+          <svg class="w-6 h-6 text-white transform group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625A2.625 2.625 0 1114.625 7.5H12m0-2.625V7.5m0-4.5V21m-7.5-13.5h15"></path>
+          </svg>
+          <span>開啟小心意</span>
+        </button>
+
+      </footer>
+
+    </main>
+
+    <!-- AUDIO ELEMENT -->
+    <audio id="main-audio" preload="auto"></audio>
+
+    <!-- HEARTTOUCHING BLESSING CARD MODAL (THE "小心意") -->
+    <div id="gift-modal" class="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center p-6 z-40 opacity-0 invisible transition-all duration-500">
+      
+      <!-- Modal Inner Container -->
+      <div id="gift-card" class="w-full max-w-sm bg-gradient-to-b from-[#fdfbf7] to-[#f9f5eb] rounded-3xl p-6 md:p-8 border-2 border-gold-300 shadow-2xl relative transform translate-y-8 transition-transform duration-500 max-h-[90vh] overflow-y-auto">
+        
+        <!-- Floating rose decorations on the corners of the card -->
+        <div class="absolute -top-3 -right-3 w-10 h-10 select-none animate-float">🌸</div>
+        <div class="absolute -bottom-3 -left-3 w-10 h-10 select-none" style="animation: float 4s ease-in-out infinite; animation-delay: 2s;">🌹</div>
+
+        <!-- Close Button -->
+        <button id="btn-close-gift" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gold-50 border border-gold-200 text-gold-600 hover:text-gold-800 flex items-center justify-center hover:bg-gold-100/50 active:scale-95 transition-all focus:outline-none" title="關閉">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <!-- Blessing Card Header -->
+        <div class="text-center mb-5 mt-2">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gold-100 text-gold-600 mb-2">
+            <!-- Shimmering gift/heart icon -->
+            <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-serif font-bold text-gold-800 tracking-wider">一份光與愛的祝福</h3>
+          <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-2"></div>
+        </div>
+
+        <!-- Blessing Card Message -->
+        <div class="font-serif text-[#5c4a45] text-base leading-relaxed tracking-widest text-center space-y-4 py-2 border-y border-gold-100/60 my-4">
+          <p class="font-semibold text-gold-700">親愛的朋友，</p>
+          <p>送你一份特別的心靈禮物。</p>
+          <p>願你在此刻的純淨聆聽中，</p>
+          <p>洗滌一身的疲憊，</p>
+          <p class="text-roseGold-700 font-semibold">讓暖暖的愛與光，</p>
+          <p>滋養並溫暖你的心靈。</p>
+          <p>願你隨時充滿正能量，</p>
+          <p>開啟人生更豐盛的新篇章。</p>
+          <p class="text-right text-xs text-gold-600 font-semibold mt-6 italic">— 太陽盛德導師 祝福 —</p>
+        </div>
+
+        <!-- Message/Interactive Input inside the Card -->
+        <div class="space-y-3">
+          <label class="block text-xs font-serif font-semibold tracking-wider text-gold-700 text-center">寫下您的祝福或願望：</label>
+          <textarea id="blessing-input" rows="2" class="w-full p-3 rounded-xl border border-gold-200 bg-white text-sm font-serif tracking-widest focus:ring-1 focus:ring-gold-400 focus:outline-none resize-none placeholder-gray-400" placeholder="願世界充滿愛與和平..."></textarea>
+          
+          <button id="btn-send-blessing" class="w-full py-2 px-4 rounded-full bg-gold-500 hover:bg-gold-600 active:scale-95 text-white font-serif font-semibold text-sm tracking-widest shadow transition-all duration-300">
+            送出心願，傳遞愛
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- HEART TOUCHING SUCCESS BLOSSOM EFFECT -->
+    <div id="blessing-toast" class="fixed bottom-12 left-1/2 -translate-x-1/2 bg-gold-800/90 backdrop-blur-md text-white font-serif px-6 py-3 rounded-full text-sm tracking-wider shadow-xl z-50 pointer-events-none opacity-0 transition-opacity duration-500 flex items-center space-x-2 border border-gold-400">
+      <span>✨</span>
+      <span id="toast-message">祝福已傳遞，感恩愛與光！</span>
+      <span>✨</span>
+    </div>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
+    <script>
+      // ==========================================
+      // PLAYLIST CONFIGURATION & DATA STATE
+      // ==========================================
+      const PLAYLIST = [
+        {
+          title: "〈再一次新程〉",
+          performer: "若陽演唱版（和音版）",
+          composer: "太陽盛德導師",
+          url: "https://file.richestlife.com/wp-content/uploads/2026/05/%E3%80%88%E5%86%8D%E4%B8%80%E6%96%B0%E7%A8%8B%E3%80%89%E8%8B%A5%E9%99%BD%E6%BC%94%E5%94%B1%E7%89%88%EF%BC%88%E5%92%8C%E9%9F%B3%E7%89%88%EF%BC%89.mp3",
+          quote1: "迎接生命，",
+          quote2: "再一次踏上嶄新的程途。"
+        },
+        {
+          title: "〈愛的飛翔〉",
+          performer: "依蓮演唱版（和音版）",
+          composer: "太陽盛德導師",
+          url: "https://file.richestlife.com/wp-content/uploads/2026/05/%E3%80%88%E6%84%9B%E7%9A%84%E9%A3%9B%E7%BF%94%E3%80%89%E4%BE%9D%E8%93%AE%E6%BC%94%E5%94%B1%E7%89%88%EF%BC%88%E5%92%8C%E9%9F%B3%E7%89%88%EF%BC%89.mp3",
+          quote1: "張開雙臂，",
+          quote2: "乘著愛之翼，翱翔於天地。"
+        }
+      ];
+
+      let currentTrackIndex = 0;
+      let isPlaying = false;
+      let updateProgressTimer = null;
+
+      // ==========================================
+      // DOM ELEMENT CACHING
+      // ==========================================
+      const audio = document.getElementById('main-audio');
+      
+      const btnPlay = document.getElementById('btn-play');
+      const playSvg = document.getElementById('play-svg');
+      const pauseSvg = document.getElementById('pause-svg');
+      
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      
+      const btnContinueListen = document.getElementById('btn-continue-listen');
+      const btnListenText = document.getElementById('btn-listen-text');
+      const btnOpenGift = document.getElementById('btn-open-gift');
+      
+      const giftModal = document.getElementById('gift-modal');
+      const giftCard = document.getElementById('gift-card');
+      const btnCloseGift = document.getElementById('btn-close-gift');
+      const btnSendBlessing = document.getElementById('btn-send-blessing');
+      const blessingInput = document.getElementById('blessing-input');
+      const blessingToast = document.getElementById('blessing-toast');
+      const toastMessage = document.getElementById('toast-message');
+
+      const mainThemeTitle = document.getElementById('main-theme-title');
+      const composerName = document.getElementById('composer-name');
+      const currentTrackDisplay = document.getElementById('current-track-display');
+      const quoteLine1 = document.getElementById('quote-line-1');
+      const quoteLine2 = document.getElementById('quote-line-2');
+      const playerVinyl = document.getElementById('player-vinyl');
+      const diskNote = document.getElementById('disk-note');
+
+      const progressFill = document.getElementById('progress-fill');
+      const progressSlider = document.getElementById('progress-slider');
+      const timeCurrent = document.getElementById('time-current');
+      const timeTotal = document.getElementById('time-total');
+
+      // ==========================================
+      // AUDIO PLAYER METHODS
+      // ==========================================
+      
+      // Load selected track metadata and set source
+      function loadTrack(index) {
+        currentTrackIndex = index;
+        const track = PLAYLIST[index];
+        
+        audio.src = track.url;
+        audio.load();
+        
+        // Update Title & Artist Display
+        currentTrackDisplay.textContent = `${track.title} ${track.performer}`;
+        
+        // Update quotes beautifully
+        quoteLine1.style.opacity = '0';
+        quoteLine2.style.opacity = '0';
+        setTimeout(() => {
+          quoteLine1.textContent = track.quote1;
+          quoteLine2.textContent = track.quote2;
+          quoteLine1.style.opacity = '1';
+          quoteLine2.style.opacity = '1';
+        }, 350);
+
+        // Reset progress controls
+        progressSlider.value = 0;
+        progressFill.style.width = '0%';
+        timeCurrent.textContent = "00:00";
+        timeTotal.textContent = "00:00";
+
+        // Update active class on Button 1
+        if (index === 1) {
+          btnListenText.textContent = "播放中：愛的飛翔";
+          btnContinueListen.classList.add('bg-gold-50/80', 'ring-2', 'ring-gold-400');
+        } else {
+          btnListenText.textContent = "繼續聆聽";
+          btnContinueListen.classList.remove('bg-gold-50/80', 'ring-2', 'ring-gold-400');
+        }
+      }
+
+      // Format time safely (seconds -> mm:ss)
+      function formatTime(secs) {
+        if (isNaN(secs)) return "00:00";
+        const m = Math.floor(secs / 60).toString().padStart(2, '0');
+        const s = Math.floor(secs % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
+      // Play audio and handle CSS animations
+      function playAudio() {
+        audio.play().then(() => {
+          isPlaying = true;
+          playSvg.classList.add('hidden');
+          pauseSvg.classList.remove('hidden');
+          
+          // Vinyl disc animation starts
+          playerVinyl.classList.add('animate-spin-slow');
+          diskNote.classList.add('scale-110', 'text-gold-500');
+          
+          // Animate floating waves
+          startProgressInterval();
+        }).catch(err => {
+          console.log("Audio play error: ", err);
+          showToast("瀏覽器阻擋播放，請點擊播放按鈕");
+        });
+      }
+
+      // Pause audio and stop CSS animations
+      function pauseAudio() {
+        audio.pause();
+        isPlaying = false;
+        playSvg.classList.remove('hidden');
+        pauseSvg.classList.add('hidden');
+        
+        // Vinyl disc animation stops
+        playerVinyl.classList.remove('animate-spin-slow');
+        diskNote.classList.remove('scale-110', 'text-gold-500');
+        
+        clearInterval(updateProgressTimer);
+      }
+
+      // Toggle Play/Pause state
+      function togglePlay() {
+        if (isPlaying) {
+          pauseAudio();
+        } else {
+          playAudio();
+        }
+      }
+
+      // Sync custom progress bar slider and timer labels
+      function startProgressInterval() {
+        clearInterval(updateProgressTimer);
+        updateProgressTimer = setInterval(() => {
+          if (!audio.duration) return;
+          
+          const percent = (audio.currentTime / audio.duration) * 100;
+          progressSlider.value = percent;
+          progressFill.style.width = `${percent}%`;
+          timeCurrent.textContent = formatTime(audio.currentTime);
+          timeTotal.textContent = formatTime(audio.duration);
+        }, 200);
+      }
+
+      // ==========================================
+      // EVENT LISTENERS & INTERACTION HANDLERS
+      // ==========================================
+      
+      // 2. Main Play/Pause Button click
+      btnPlay.addEventListener('click', togglePlay);
+
+      // 3. Skip Previous Track
+      btnPrev.addEventListener('click', () => {
+        let prevIndex = currentTrackIndex - 1;
+        if (prevIndex < 0) prevIndex = PLAYLIST.length - 1;
+        loadTrack(prevIndex);
+        playAudio();
+      });
+
+      // 4. Skip Next Track
+      btnNext.addEventListener('click', () => {
+        let nextIndex = currentTrackIndex + 1;
+        if (nextIndex >= PLAYLIST.length) nextIndex = 0;
+        loadTrack(nextIndex);
+        playAudio();
+      });
+
+      // 5. Click/Drag Progress Slider to seek
+      progressSlider.addEventListener('input', () => {
+        if (!audio.duration) return;
+        const seekTime = (progressSlider.value / 100) * audio.duration;
+        audio.currentTime = seekTime;
+        progressFill.style.width = `${progressSlider.value}%`;
+        timeCurrent.textContent = formatTime(seekTime);
+      });
+
+      // 6. "繼續聆聽" Button Click (To swap tracks)
+      btnContinueListen.addEventListener('click', () => {
+        // Toggle/Switch directly to Track 2 (愛的飛翔) as requested by user
+        if (currentTrackIndex !== 1) {
+          loadTrack(1);
+          playAudio();
+          showToast("切換至《愛的飛翔》持續聆聽...");
+        } else {
+          // If already on track 2, just toggle play
+          togglePlay();
+        }
+      });
+
+      // 7. "開啟小心意" Button Click (Reveal elegant modal card on-page instead of redirect)
+      btnOpenGift.addEventListener('click', () => {
+        giftModal.classList.remove('invisible');
+        giftModal.classList.add('opacity-100');
+        giftCard.classList.remove('translate-y-8');
+        giftCard.classList.add('translate-y-0');
+      });
+
+      // 8. Close Gift Modal
+      function closeGiftModal() {
+        giftModal.classList.remove('opacity-100');
+        giftModal.classList.add('opacity-0');
+        giftCard.classList.remove('translate-y-0');
+        giftCard.classList.add('translate-y-8');
+        setTimeout(() => {
+          giftModal.classList.add('invisible');
+        }, 500);
+      }
+      
+      btnCloseGift.addEventListener('click', closeGiftModal);
+      giftModal.addEventListener('click', (e) => {
+        if (e.target === giftModal) closeGiftModal();
+      });
+
+      // 9. Send Blessing inside Card
+      btnSendBlessing.addEventListener('click', () => {
+        const value = blessingInput.value.trim();
+        if (value) {
+          blessingInput.value = "";
+          closeGiftModal();
+          // Create luxurious feedback effect
+          createExplosionOfHearts();
+          setTimeout(() => {
+            showToast("感謝您的美好祝福！願愛與光與您同行！✨");
+          }, 300);
+        } else {
+          showToast("請輸入您想要傳遞的心願與祝福唷 💗");
+        }
+      });
+
+      // 10. Automatically advance to next track when song finishes
+      audio.addEventListener('ended', () => {
+        let nextIndex = currentTrackIndex + 1;
+        if (nextIndex >= PLAYLIST.length) nextIndex = 0;
+        loadTrack(nextIndex);
+        playAudio();
+      });
+
+      // 11. Read Duration as soon as metadata arrives
+      audio.addEventListener('loadedmetadata', () => {
+        timeTotal.textContent = formatTime(audio.duration);
+      });
+
+      // Helper function to show elegant feedback toasts
+      function showToast(message) {
+        toastMessage.textContent = message;
+        blessingToast.classList.remove('opacity-0');
+        blessingToast.classList.add('opacity-100');
+        
+        setTimeout(() => {
+          blessingToast.classList.remove('opacity-100');
+          blessingToast.classList.add('opacity-0');
+        }, 3000);
+      }
+
+      // ==========================================
+      // HEART & FLOWER BLOSSOM EXPLOSION EFFECT
+      // ==========================================
+      function createExplosionOfHearts() {
+        const colors = ['#fbcfe8', '#f472b6', '#fb7185', '#fde047', '#fcd34d'];
+        const container = document.body;
+        
+        for (let i = 0; i < 28; i++) {
+          const element = document.createElement('div');
+          element.className = 'absolute pointer-events-none z-50 text-xl transition-all duration-1000 ease-out';
+          element.innerHTML = i % 2 === 0 ? '🌸' : '💗';
+          element.style.left = '50%';
+          element.style.top = '50%';
+          element.style.transform = 'translate(-50%, -50%)';
+          container.appendChild(element);
+
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 80 + Math.random() * 220;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance - 40;
+          const rotate = (Math.random() - 0.5) * 360;
+
+          requestAnimationFrame(() => {
+            element.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rotate}deg)`;
+            element.style.opacity = '0';
+          });
+
+          setTimeout(() => {
+            element.remove();
+          }, 1100);
+        }
+      }
+
+      // ==========================================
+      // CANVAS-BASED FLOATING/FALLING ROSE PETALS
+      // ==========================================
+      const canvas = document.getElementById('petalsCanvas');
+      const ctx = canvas.getContext('2d');
+
+      let petalsArray = [];
+      const numberOfPetals = 22;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      class Petal {
+        constructor() {
+          this.reset();
+          this.y = Math.random() * canvas.height; // Spread initially across height
+        }
+
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = -20;
+          this.size = 6 + Math.random() * 12;
+          this.speedY = 0.5 + Math.random() * 1.5;
+          this.speedX = (Math.random() - 0.5) * 0.8;
+          this.opacity = 0.4 + Math.random() * 0.5;
+          this.rotation = Math.random() * 360;
+          this.spinSpeed = (Math.random() - 0.5) * 1.5;
+          // Vary shades of soft rose petals
+          const roseColors = [
+            'rgba(255, 192, 203, ',  // Pink
+            'rgba(255, 182, 193, ',  // LightPink
+            'rgba(255, 218, 224, ',  // Soft Rose
+            'rgba(244, 114, 182, ',  // Deep Pink
+          ];
+          this.colorBase = roseColors[Math.floor(Math.random() * roseColors.length)];
+        }
+
+        update() {
+          this.y += this.speedY;
+          this.x += this.speedX + Math.sin(this.y / 30) * 0.3; // Sway effect
+          this.rotation += this.spinSpeed;
+
+          // Recycle petal if offscreen
+          if (this.y > canvas.height + 20 || this.x < -20 || this.x > canvas.width + 20) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate((this.rotation * Math.PI) / 180);
+          ctx.beginPath();
+          
+          // Draw an organic elegant curved petal shape
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size);
+          ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+          
+          ctx.fillStyle = this.colorBase + this.opacity + ')';
+          ctx.fill();
+          
+          // Delicate highlight stroke
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + (this.opacity * 0.4) + ')';
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+
+          ctx.restore();
+        }
+      }
+
+      function initPetals() {
+        petalsArray = [];
+        for (let i = 0; i < numberOfPetals; i++) {
+          petalsArray.push(new Petal());
+        }
+      }
+
+      function animatePetals() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < petalsArray.length; i++) {
+          petalsArray[i].update();
+          petalsArray[i].draw();
+        }
+        requestAnimationFrame(animatePetals);
+      }
+
+      initPetals();
+      animatePetals();
+
+      // ==========================================
+      // INITIALIZATION
+      // ==========================================
+      // Load first track (〈再一次新程〉若陽演唱版) initially
+      loadTrack(0);
+
+    </script>
+  </body>
+</html>
